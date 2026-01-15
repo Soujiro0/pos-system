@@ -3,6 +3,7 @@ import { Plus, Search, Filter, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import ProductCard from '../components/ProductCard';
 import ProductFormModal from '../components/ProductFormModal';
+import InventoryModal from '../components/InventoryModal';
 import { useProducts, useDeleteProduct } from '../hooks/useProducts';
 
 export default function ProductsPage() {
@@ -10,6 +11,8 @@ export default function ProductsPage() {
     const [categoryFilter, setCategoryFilter] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
+    const [isInventoryModalOpen, setIsInventoryModalOpen] = useState(false);
+    const [inventoryProduct, setInventoryProduct] = useState(null);
 
     const { data: products, isLoading, isError, error } = useProducts(searchTerm, categoryFilter);
     const deleteMutation = useDeleteProduct();
@@ -17,6 +20,11 @@ export default function ProductsPage() {
     const handleEdit = (product) => {
         setEditingProduct(product);
         setIsModalOpen(true);
+    };
+
+    const handleManageStock = (product) => {
+        setInventoryProduct(product);
+        setIsInventoryModalOpen(true);
     };
 
     const handleDelete = async (id) => {
@@ -33,6 +41,11 @@ export default function ProductsPage() {
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setEditingProduct(null);
+    };
+
+    const handleCloseInventoryModal = () => {
+        setIsInventoryModalOpen(false);
+        setInventoryProduct(null);
     };
 
     return (
@@ -101,6 +114,7 @@ export default function ProductsPage() {
                             product={product}
                             onEdit={handleEdit}
                             onDelete={handleDelete}
+                            onManageStock={handleManageStock}
                         />
                     ))}
                 </div>
@@ -112,6 +126,15 @@ export default function ProductsPage() {
                     isOpen={isModalOpen}
                     onClose={handleCloseModal}
                     product={editingProduct}
+                />
+            )}
+
+            {/* Inventory Modal */}
+            {isInventoryModalOpen && (
+                <InventoryModal
+                    isOpen={isInventoryModalOpen}
+                    onClose={handleCloseInventoryModal}
+                    product={inventoryProduct}
                 />
             )}
         </div>

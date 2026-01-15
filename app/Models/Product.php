@@ -26,4 +26,9 @@ class Product extends Model
         'price' => 'decimal:2',
         'attributes' => 'array',
     ];
+
+    public function inventory()
+    {
+        return $this->hasOne(Inventory::class, 'product_id');
+    }
 }

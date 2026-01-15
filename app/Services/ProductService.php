@@ -19,7 +19,14 @@ class ProductService
             $data['sku'] = $this->generateSku($data['name']);
         }
 
-        return Product::create($data);
+        $product = Product::create($data);
+
+        // Initialize inventory
+        \App\Models\Inventory::create([
+            'product_id' => $product->id,
+        ]);
+
+        return $product;
     }
 
     /**

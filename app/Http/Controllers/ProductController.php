@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Product::query();
+        $query = Product::with('inventory');
 
         if ($request->has('q')) {
             $searchTerm = $request->query('q');
