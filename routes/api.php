@@ -19,4 +19,6 @@ Route::prefix('v1')->group(function () {
             'status' => 'ok',
         ]);
     });
+
+    Route::apiResource('products', \App\Http\Controllers\ProductController::class);
 });
