@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('tbl_products', function (Blueprint $table) {
             $table->id();
             $table->string('sku')->unique();
             $table->string('barcode')->nullable()->unique();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('tbl_products');
     }
 };

@@ -4,6 +4,8 @@ import { toast } from 'sonner';
 import ProductCard from '../components/ProductCard';
 import ProductFormModal from '../components/ProductFormModal';
 import InventoryModal from '../components/InventoryModal';
+import ConfirmationModal from '../components/ConfirmationModal';
+import Pagination from '../components/Pagination';
 import { useProducts, useDeleteProduct } from '../hooks/useProducts';
 
 export default function ProductsPage() {
@@ -13,8 +15,11 @@ export default function ProductsPage() {
     const [editingProduct, setEditingProduct] = useState(null);
     const [isInventoryModalOpen, setIsInventoryModalOpen] = useState(false);
     const [inventoryProduct, setInventoryProduct] = useState(null);
+    const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, id: null, name: '' });
+    const [currentPage, setCurrentPage] = useState(1);
+    const [perPage, setPerPage] = useState(15);
 
-    const { data: products, isLoading, isError, error } = useProducts(searchTerm, categoryFilter);
+    const { data: products, isLoading, isError, error } = useProducts(searchTerm, categoryFilter, currentPage, perPage);
     const deleteMutation = useDeleteProduct();
 
     const handleEdit = (product) => {
@@ -27,14 +32,24 @@ export default function ProductsPage() {
         setIsInventoryModalOpen(true);
     };
 
-    const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this product?')) {
-            try {
-                await deleteMutation.mutateAsync(id);
-                toast.success('Product deleted successfully');
-            } catch (err) {
-                toast.error('Failed to delete product');
-            }
+    const handleDelete = (id) => {
+        const product = products?.data?.find(p => p.id === id);
+        setDeleteConfirmation({
+            isOpen: true,
+            id,
+            name: product?.name
+        });
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!deleteConfirmation.id) return;
+
+        try {
+            await deleteMutation.mutateAsync(deleteConfirmation.id);
+            toast.success('Product deleted successfully');
+            setDeleteConfirmation({ isOpen: false, id: null, name: '' });
+        } catch (err) {
+            toast.error('Failed to delete product');
         }
     };
 
@@ -120,6 +135,21 @@ export default function ProductsPage() {
                 </div>
             )}
 
+            {/* Pagination */}
+            {products && (
+                <Pagination
+                    currentPage={products.current_page}
+                    lastPage={products.last_page}
+                    onPageChange={setCurrentPage}
+                    total={products.total}
+                    perPage={perPage}
+                    onPerPageChange={(newPerPage) => {
+                        setPerPage(newPerPage);
+                        setCurrentPage(1);
+                    }}
+                />
+            )}
+
             {/* Modal */}
             {isModalOpen && (
                 <ProductFormModal
@@ -137,6 +167,17 @@ export default function ProductsPage() {
                     product={inventoryProduct}
                 />
             )}
+
+            <ConfirmationModal
+                isOpen={deleteConfirmation.isOpen}
+                onClose={() => setDeleteConfirmation({ isOpen: false, id: null, name: '' })}
+                onConfirm={handleConfirmDelete}
+                title="Delete Product"
+                message={`Are you sure you want to delete "${deleteConfirmation.name || 'this product'}"? This action cannot be undone.`}
+                confirmText="Delete"
+                variant="danger"
+                isLoading={deleteMutation.isPending}
+            />
         </div>
     );
 }

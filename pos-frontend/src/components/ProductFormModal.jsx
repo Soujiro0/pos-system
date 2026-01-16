@@ -129,7 +129,7 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-gray-700">Price *</label>
                             <div className="relative">
-                                <span className="absolute left-3 top-2 text-gray-500">$</span>
+                                <span className="absolute left-3 top-2 text-gray-500">₱</span>
                                 <input
                                     type="number"
                                     name="price"

@@ -27,13 +27,20 @@ async function fetchClient(url, options = {}) {
 }
 
 // Hooks
-export function useProducts(searchTerm = "", category = "") {
+export function useProducts(
+    searchTerm = "",
+    category = "",
+    page = 1,
+    perPage = 15
+) {
     return useQuery({
-        queryKey: ["products", searchTerm, category],
+        queryKey: ["products", searchTerm, category, page, perPage],
         queryFn: () => {
             const params = new URLSearchParams();
             if (searchTerm) params.append("q", searchTerm);
             if (category) params.append("category", category);
+            params.append("page", page);
+            params.append("per_page", perPage);
             return fetchClient(`${API_URL}?${params.toString()}`);
         },
     });

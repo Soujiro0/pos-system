@@ -35,7 +35,8 @@ class ProductController extends Controller
             $query->where('category', $request->query('category'));
         }
 
-        $products = $query->paginate(15);
+        $perPage = $request->input('per_page', 15);
+        $products = $query->paginate((int)$perPage);
 
         return response()->json($products);
     }
@@ -47,8 +48,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'sku' => 'nullable|string|unique:products,sku',
-            'barcode' => 'nullable|string|unique:products,barcode',
+            'sku' => 'nullable|string|unique:tbl_products,sku',
+            'barcode' => 'nullable|string|unique:tbl_products,barcode',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'category' => 'nullable|string',
@@ -76,8 +77,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'sometimes|required|string|max:255',
-            'sku' => 'sometimes|nullable|string|unique:products,sku,' . $product->id,
-            'barcode' => 'sometimes|nullable|string|unique:products,barcode,' . $product->id,
+            'sku' => 'sometimes|nullable|string|unique:tbl_products,sku,' . $product->id,
+            'barcode' => 'sometimes|nullable|string|unique:tbl_products,barcode,' . $product->id,
             'price' => 'sometimes|required|numeric|min:0',
             'description' => 'nullable|string',
             'category' => 'nullable|string',

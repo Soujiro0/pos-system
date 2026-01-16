@@ -65,7 +65,7 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
                     </div>
                     <div className="text-right">
                         <span className="block font-bold text-gray-900">
-                            ${Number(product.price).toFixed(2)}
+                            ₱{Number(product.price).toFixed(2)}
                         </span>
                         <span className={`text-xs font-medium ${isLowStock ? 'text-red-600' : 'text-gray-500'}`}>
                             {stock} in stock
