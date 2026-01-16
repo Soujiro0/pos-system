@@ -3,7 +3,10 @@
 namespace Tests\Unit;
 
 use App\Models\Product;
+use App\Models\PriceLog;
 use App\Services\ProductService;
+use App\Services\PricingService;
+use App\Services\InventoryService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,7 +19,10 @@ class ProductServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->productService = new ProductService();
+        // Manually instantiate dependencies
+        $inventoryService = new InventoryService();
+        $pricingService = new PricingService($inventoryService);
+        $this->productService = new ProductService($pricingService);
     }
 
     public function test_it_creates_product_with_auto_generated_sku()
@@ -75,5 +81,27 @@ class ProductServiceTest extends TestCase
 
         $this->assertEquals('New Name', $updatedProduct->name);
         $this->assertEquals(12.00, $updatedProduct->price);
+    }
+
+    public function test_it_logs_price_change_on_update()
+    {
+        $product = Product::factory()->create(['price' => 100]);
+        // Initial log from create? No, factory creates directly. 
+        // Service create logs it. But here we use factory.
+        // So let's update via Service.
+
+        $this->productService->updateProduct($product, ['price' => 150]);
+
+        // Check Product Table
+        $this->assertEquals(150, $product->fresh()->price);
+
+        // Check Price Log
+        $log = PriceLog::where('product_id', $product->id)->latest()->first();
+        $this->assertNotNull($log);
+        $this->assertEquals(100, $log->old_amount); // Note: PricingService::getPrice logic reads from Price table or fallback. Factory logic might not set Price table. 
+        // Wait, PricingService::getPrice falls back to Product price.
+        // So old_amount should be 100.
+        $this->assertEquals(150, $log->new_amount);
+        $this->assertEquals('Product Update', $log->reason);
     }
 }

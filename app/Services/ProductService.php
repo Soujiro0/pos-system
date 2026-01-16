@@ -13,6 +13,19 @@ class ProductService
      * @param array $data
      * @return Product
      */
+    protected PricingService $pricingService;
+
+    public function __construct(PricingService $pricingService)
+    {
+        $this->pricingService = $pricingService;
+    }
+
+    /**
+     * Create a new product.
+     *
+     * @param array $data
+     * @return Product
+     */
     public function createProduct(array $data): Product
     {
         if (empty($data['sku'])) {
@@ -26,6 +39,16 @@ class ProductService
             'product_id' => $product->id,
         ]);
 
+        // Initialize Price Log/Entry if price provided
+        if (isset($data['price'])) {
+            $this->pricingService->updatePrice(
+                $product, 
+                (float) $data['price'], 
+                'Initial Creation', 
+                auth()->id()
+            );
+        }
+
         return $product;
     }
 
@@ -38,6 +61,16 @@ class ProductService
      */
     public function updateProduct(Product $product, array $data): Product
     {
+        // Check if price changed
+        if (isset($data['price']) && (float)$data['price'] !== (float)$product->price) {
+             $this->pricingService->updatePrice(
+                $product, 
+                (float) $data['price'], 
+                'Product Update', 
+                auth()->id()
+            );
+        }
+        
         $product->update($data);
         return $product;
     }

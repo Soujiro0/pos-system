@@ -22,6 +22,25 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('products', \App\Http\Controllers\ProductController::class);
     
+    // Pricing Routes
+    Route::prefix('pricing')->group(function () {
+        Route::post('/calculate', [\App\Http\Controllers\PricingController::class, 'calculate']);
+        Route::post('/reserve', [\App\Http\Controllers\PricingController::class, 'reserve']);
+        
+        // Taxes
+        Route::get('/taxes', [\App\Http\Controllers\PricingController::class, 'indexTaxes']);
+        Route::post('/taxes', [\App\Http\Controllers\PricingController::class, 'storeTax']);
+        
+        // Discounts
+        Route::get('/discounts', [\App\Http\Controllers\PricingController::class, 'indexDiscounts']);
+        Route::post('/discounts', [\App\Http\Controllers\PricingController::class, 'storeDiscount']);
+
+        // Logs
+        Route::get('/logs', [\App\Http\Controllers\PricingController::class, 'indexLogs']);
+        
+        Route::post('/price/{productId}', [\App\Http\Controllers\PricingController::class, 'updatePrice']);
+    });
+
     // Inventory Routes
     Route::prefix('products/{productId}/inventory')->group(function () {
         Route::get('/', [\App\Http\Controllers\InventoryController::class, 'show']);

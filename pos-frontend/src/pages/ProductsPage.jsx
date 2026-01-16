@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Plus, Search, Filter, Loader2 } from 'lucide-react';
+import { Plus, Search, Filter, Loader2, Calculator } from 'lucide-react';
 import { toast } from 'sonner';
 import ProductCard from '../components/ProductCard';
 import ProductFormModal from '../components/ProductFormModal';
 import InventoryModal from '../components/InventoryModal';
 import ConfirmationModal from '../components/ConfirmationModal';
 import Pagination from '../components/Pagination';
+import PricingSimulator from '../components/PricingSimulator';
 import { useProducts, useDeleteProduct } from '../hooks/useProducts';
 
 export default function ProductsPage() {
@@ -18,6 +19,7 @@ export default function ProductsPage() {
     const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, id: null, name: '' });
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(15);
+    const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
 
     const { data: products, isLoading, isError, error } = useProducts(searchTerm, categoryFilter, currentPage, perPage);
     const deleteMutation = useDeleteProduct();
@@ -71,6 +73,13 @@ export default function ProductsPage() {
                     <h1 className="text-2xl font-bold text-gray-900">Products</h1>
                     <p className="text-gray-500 text-sm">Manage your product catalog</p>
                 </div>
+                <button
+                    onClick={() => setIsSimulatorOpen(true)}
+                    className="w-full md:w-auto flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-lg shadow-sm transition-all font-medium"
+                >
+                    <Calculator className="w-5 h-5" />
+                    <span>Simulate Checkout</span>
+                </button>
                 <button
                     onClick={() => setIsModalOpen(true)}
                     className="w-full md:w-auto flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg shadow-sm shadow-indigo-200 transition-all font-medium"
@@ -165,6 +174,14 @@ export default function ProductsPage() {
                     isOpen={isInventoryModalOpen}
                     onClose={handleCloseInventoryModal}
                     product={inventoryProduct}
+                />
+            )}
+
+            {isSimulatorOpen && (
+                <PricingSimulator
+                    isOpen={isSimulatorOpen}
+                    onClose={() => setIsSimulatorOpen(false)}
+                    availableProducts={products?.data || []}
                 />
             )}
 
