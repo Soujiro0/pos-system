@@ -53,4 +53,10 @@ Route::prefix('v1')->group(function () {
     // Transactions
     Route::post('/transactions/checkout', [\App\Http\Controllers\TransactionController::class, 'checkout']);
     Route::get('/transactions/{id}', [\App\Http\Controllers\TransactionController::class, 'show']);
+
+    // Analytics
+    Route::prefix('analytics')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\AnalyticsController::class, 'dashboard']);
+        Route::get('/sales', [\App\Http\Controllers\AnalyticsController::class, 'sales']);
+    });
 });
