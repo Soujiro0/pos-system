@@ -38,7 +38,11 @@ class InventoryService
     public function removeStock(int $productId, int $quantity, ?string $reason = null, ?int $userId = null): Inventory
     {
         return DB::transaction(function () use ($productId, $quantity, $reason, $userId) {
-            $inventory = Inventory::where('product_id', $productId)->lockForUpdate()->firstOrFail();
+            // Use firstOrCreate to prevent "No query results" error if inventory missing
+            $inventory = Inventory::firstOrCreate(['product_id' => $productId]);
+            
+            // Lock the row for update to prevent race conditions
+            $inventory = Inventory::where('id', $inventory->id)->lockForUpdate()->first();
 
             if ($inventory->quantity < $quantity) {
                 throw new Exception("Insufficient stock. Available: {$inventory->quantity}");

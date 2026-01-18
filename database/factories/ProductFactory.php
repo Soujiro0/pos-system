@@ -32,4 +32,18 @@ class ProductFactory extends Factory
             'attributes' => ['color' => $this->faker->colorName],
         ];
     }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Product $product) {
+            \App\Models\Inventory::create([
+                'product_id' => $product->id,
+                'quantity' => $this->faker->numberBetween(10, 100),
+                'low_stock_threshold' => 10,
+            ]);
+        });
+    }
 }

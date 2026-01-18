@@ -48,4 +48,8 @@ Route::prefix('v1')->group(function () {
         Route::post('/remove', [\App\Http\Controllers\InventoryController::class, 'remove']);
         Route::post('/adjust', [\App\Http\Controllers\InventoryController::class, 'adjust']);
     });
+
+    // Transactions
+    Route::post('/transactions/checkout', [\App\Http\Controllers\TransactionController::class, 'checkout']);
+    Route::get('/transactions/{id}', [\App\Http\Controllers\TransactionController::class, 'show']);
 });
