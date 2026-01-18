@@ -30,7 +30,11 @@ class AnalyticsController extends Controller
                 'low_stock_count' => $this->analytics->getLowStockCount(),
                 'valuation' => $this->analytics->getInventoryValuation()
             ],
-            'top_products' => $this->analytics->getTopSellingProducts(5)
+            'top_products' => $this->analytics->getTopSellingProducts(5),
+            'sales_trend' => $this->analytics->getSalesSummary(
+                Carbon::now()->subDays(6)->toDateString(), 
+                Carbon::now()->toDateString()
+            )['daily_trend']
         ]);
     }
 

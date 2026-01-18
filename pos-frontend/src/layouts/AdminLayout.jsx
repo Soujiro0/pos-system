@@ -75,7 +75,7 @@ export default function AdminLayout() {
                                 <p className="text-sm font-bold text-gray-900">Admin User</p>
                                 <p className="text-xs text-gray-500">Store Manager</p>
                             </div>
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 border-2 border-white shadow-md" />
+                            <div className="w-10 h-10 rounded-full bg-indigo-600 border-2 border-white shadow-md" />
                         </div>
                     </div>
                 </header>
