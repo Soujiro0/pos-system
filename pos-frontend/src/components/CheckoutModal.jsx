@@ -3,9 +3,9 @@ import { X, CreditCard, Banknote, Smartphone, Loader2, CheckCircle2 } from 'luci
 import { toast } from 'sonner';
 import { useCheckout } from '../hooks/useTransactions';
 
-export default function CheckoutModal({ isOpen, onClose, cartData, onSuccess }) {
+export default function CheckoutModal({ isOpen, onClose, cartData, onSuccess, initialPaymentMethod = 'cash' }) {
     const [amountTendered, setAmountTendered] = useState('');
-    const [paymentMethod, setPaymentMethod] = useState('cash');
+    const [paymentMethod, setPaymentMethod] = useState(initialPaymentMethod);
     const { mutate: checkout, isPending } = useCheckout();
 
     const totalAmount = parseFloat(cartData?.total || 0);
@@ -15,9 +15,9 @@ export default function CheckoutModal({ isOpen, onClose, cartData, onSuccess }) 
     useEffect(() => {
         if (isOpen) {
             setAmountTendered('');
-            setPaymentMethod('cash');
+            setPaymentMethod(initialPaymentMethod);
         }
-    }, [isOpen]);
+    }, [isOpen, initialPaymentMethod]);
 
     if (!isOpen) return null;
 

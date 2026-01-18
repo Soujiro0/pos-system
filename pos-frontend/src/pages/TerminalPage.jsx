@@ -6,12 +6,18 @@ import { useCartStore } from '../store/useCartStore';
 import { useCalculateCart } from '../hooks/usePricing';
 import { useHotkeys } from '../hooks/useHotkeys';
 import ConfirmationModal from '../components/ConfirmationModal';
+import CheckoutModal from '../components/CheckoutModal';
+import ReceiptModal from '../components/ReceiptModal';
 
 export default function TerminalPage() {
     const [selectedCategory, setSelectedCategory] = useState(null); // null = All
     const [searchTerm, setSearchTerm] = useState('');
     const [isClearCartOpen, setIsClearCartOpen] = useState(false);
     const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
+    const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+    const [isReceiptOpen, setIsReceiptOpen] = useState(false);
+    const [lastTransaction, setLastTransaction] = useState(null);
+    const [initialPaymentMethod, setInitialPaymentMethod] = useState('cash');
     const searchInputRef = useRef(null);
 
     // Fetch Data
@@ -46,6 +52,19 @@ export default function TerminalPage() {
     const confirmClearCart = () => {
         clearCart();
         setIsClearCartOpen(false);
+    };
+
+    const handleCheckout = (method = 'cash') => {
+        if (cartItems.length === 0) return;
+        setInitialPaymentMethod(method);
+        setIsCheckoutOpen(true);
+    };
+
+    const handleTransactionSuccess = (transaction) => {
+        setLastTransaction(transaction);
+        setIsCheckoutOpen(false);
+        setIsReceiptOpen(true);
+        clearCart();
     };
 
     useHotkeys({
@@ -316,11 +335,19 @@ export default function TerminalPage() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                        <button className="flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 py-3.5 rounded-xl font-bold transition-colors">
+                        <button
+                            onClick={() => handleCheckout('card')}
+                            disabled={cartItems.length === 0}
+                            className="flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 py-3.5 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
                             <CreditCard className="w-5 h-5" />
                             Card
                         </button>
-                        <button className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-indigo-600/30 transition-all transform active:scale-[0.98]">
+                        <button
+                            onClick={() => handleCheckout('cash')}
+                            disabled={cartItems.length === 0}
+                            className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-indigo-600/30 transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
                             Pay Cash
                         </button>
                     </div>
@@ -374,6 +401,34 @@ export default function TerminalPage() {
                     </div>
                 </div>
             )}
+
+            <CheckoutModal
+                isOpen={isCheckoutOpen}
+                onClose={() => setIsCheckoutOpen(false)}
+                cartData={{
+                    items: cartItems.map(item => ({
+                        product_id: item.id,
+                        product_name: item.name,
+                        price: item.price,
+                        quantity: item.quantity,
+                        subtotal: (item.price * item.quantity),
+                        sku: item.sku || 'N/A' // Ensure SKU is handled if missing
+                    })),
+                    total: total,
+                    breakdown: {
+                        total_tax: tax,
+                        total_discount: totals?.discount || 0
+                    }
+                }}
+                onSuccess={handleTransactionSuccess}
+                initialPaymentMethod={initialPaymentMethod} // Pass this if CheckoutModal supports it
+            />
+
+            <ReceiptModal
+                isOpen={isReceiptOpen}
+                onClose={() => setIsReceiptOpen(false)}
+                transaction={lastTransaction}
+            />
         </div>
     );
 }
