@@ -71,8 +71,8 @@ export default function ProductsPage() {
             {/* Header & Actions */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Products</h1>
-                    <p className="text-gray-500 text-sm">Manage your product catalog</p>
+                    <h1 className="text-2xl font-bold text-primary">Products</h1>
+                    <p className="text-accent text-sm">Manage your product catalog</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <button
@@ -84,7 +84,7 @@ export default function ProductsPage() {
                     </button>
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="w-full md:w-auto flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg shadow-sm shadow-indigo-200 transition-all font-medium"
+                        className="w-full md:w-auto flex items-center justify-center space-x-2 bg-secondary hover:bg-secondary/90 text-white px-4 py-2.5 rounded-lg shadow-sm shadow-secondary/20 transition-all font-medium"
                     >
                         <Plus className="w-5 h-5" />
                         <span>Add Product</span>
@@ -101,7 +101,7 @@ export default function ProductsPage() {
                         placeholder="Search by name or SKU..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                     />
                 </div>
                 <div className="relative w-full md:w-48">
@@ -111,20 +111,20 @@ export default function ProductsPage() {
                         placeholder="Filter by category..."
                         value={categoryFilter}
                         onChange={(e) => setCategoryFilter(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                     />
                 </div>
-                <div className="flex bg-white rounded-lg p-1 border border-gray-200 shadow-sm shrink-0">
+                <div className="flex bg-white rounded-lg p-1 border border-accent/20 shadow-sm shrink-0">
                     <button
                         onClick={() => setViewMode('grid')}
-                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-indigo-50 text-indigo-600' : 'text-gray-400 hover:text-gray-600'}`}
+                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-secondary/10 text-secondary' : 'text-gray-400 hover:text-primary'}`}
                         title="Grid View"
                     >
                         <LayoutGrid className="w-5 h-5" />
                     </button>
                     <button
                         onClick={() => setViewMode('table')}
-                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-indigo-50 text-indigo-600' : 'text-gray-400 hover:text-gray-600'}`}
+                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-secondary/10 text-secondary' : 'text-gray-400 hover:text-primary'}`}
                         title="List View"
                     >
                         <List className="w-5 h-5" />
@@ -135,19 +135,19 @@ export default function ProductsPage() {
             {/* Content */}
             {isLoading ? (
                 <div className="flex items-center justify-center h-64">
-                    <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+                    <Loader2 className="w-8 h-8 animate-spin text-secondary" />
                 </div>
             ) : isError ? (
                 <div className="bg-red-50 text-red-600 p-4 rounded-lg text-center">
                     Error loading products: {error.message}
                 </div>
             ) : products?.data?.length === 0 ? (
-                <div className="text-center py-12 bg-white rounded-xl border border-gray-100 border-dashed">
-                    <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="text-center py-12 bg-white rounded-xl border border-accent/10 border-dashed">
+                    <div className="w-16 h-16 bg-light/30 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Search className="w-8 h-8 text-gray-400" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-1">No products found</h3>
-                    <p className="text-gray-500">Try adjusting your search or add a new product.</p>
+                    <h3 className="text-lg font-medium text-primary mb-1">No products found</h3>
+                    <p className="text-accent">Try adjusting your search or add a new product.</p>
                 </div>
             ) : (
                 <>
@@ -164,9 +164,9 @@ export default function ProductsPage() {
                             ))}
                         </div>
                     ) : (
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div className="bg-white rounded-xl shadow-sm border border-accent/20 overflow-hidden">
                             <table className="w-full text-left text-sm">
-                                <thead className="bg-gray-50/50 border-b border-gray-100 text-gray-500 uppercase tracking-wider text-xs">
+                                <thead className="bg-light/30/50 border-b border-accent/10 text-accent uppercase tracking-wider text-xs">
                                     <tr>
                                         <th className="px-6 py-4 font-semibold">Product</th>
                                         <th className="px-6 py-4 font-semibold">SKU</th>
@@ -178,10 +178,10 @@ export default function ProductsPage() {
                                 </thead>
                                 <tbody className="divide-y divide-gray-100">
                                     {products?.data?.map((product) => (
-                                        <tr key={product.id} className="hover:bg-gray-50/50 transition-colors group">
+                                        <tr key={product.id} className="hover:bg-light/30/50 transition-colors group">
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0">
+                                                    <div className="w-10 h-10 rounded-lg bg-light/50 overflow-hidden shrink-0">
                                                         {product.image ? (
                                                             <img src={`http://localhost:8000/storage/${product.image}`} alt={product.name} className="w-full h-full object-cover" />
                                                         ) : (
@@ -190,12 +190,12 @@ export default function ProductsPage() {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <span className="font-medium text-gray-900">{product.name}</span>
+                                                    <span className="font-medium text-primary">{product.name}</span>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 text-gray-500 font-mono text-xs">{product.sku}</td>
-                                            <td className="px-6 py-4 text-gray-500">{product.category || '-'}</td>
-                                            <td className="px-6 py-4 font-bold text-gray-900">₱{parseFloat(product.price).toFixed(2)}</td>
+                                            <td className="px-6 py-4 text-accent font-mono text-xs">{product.sku}</td>
+                                            <td className="px-6 py-4 text-accent">{product.category || '-'}</td>
+                                            <td className="px-6 py-4 font-bold text-primary">₱{parseFloat(product.price).toFixed(2)}</td>
                                             <td className="px-6 py-4">
                                                 <div className={`flex items-center gap-2 ${(product.inventory?.quantity ?? 0) <= (product.inventory?.low_stock_threshold ?? 10) ? 'text-amber-600' : 'text-emerald-600'}`}>
                                                     <span className={`w-2 h-2 rounded-full ${(product.inventory?.quantity ?? 0) <= (product.inventory?.low_stock_threshold ?? 10) ? 'bg-amber-500' : 'bg-emerald-500'}`} />
@@ -204,10 +204,10 @@ export default function ProductsPage() {
                                             </td>
                                             <td className="px-6 py-4 text-right">
                                                 <div className="flex items-center justify-end gap-2">
-                                                    <button onClick={() => handleManageStock(product)} className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="Manage Stock">
+                                                    <button onClick={() => handleManageStock(product)} className="p-2 text-gray-400 hover:text-secondary hover:bg-secondary/10 rounded-lg transition-colors" title="Manage Stock">
                                                         <Package className="w-4 h-4" />
                                                     </button>
-                                                    <button onClick={() => handleEdit(product)} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                                                    <button onClick={() => handleEdit(product)} className="p-2 text-gray-400 hover:text-secondary hover:bg-secondary/10 rounded-lg transition-colors" title="Edit">
                                                         <Edit className="w-4 h-4" />
                                                     </button>
                                                     <button onClick={() => handleDelete(product.id)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">

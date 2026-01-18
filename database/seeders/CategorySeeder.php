@@ -16,32 +16,22 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Beverages',
                 'slug' => 'beverages',
-                'icon' => 'Coffee',
-                'color' => 'bg-blue-100 text-blue-600',
             ],
             [
                 'name' => 'Snacks',
                 'slug' => 'snacks',
-                'icon' => 'Cookie',
-                'color' => 'bg-orange-100 text-orange-600',
             ],
             [
                 'name' => 'Electronics',
                 'slug' => 'electronics',
-                'icon' => 'Smartphone',
-                'color' => 'bg-purple-100 text-purple-600',
             ],
             [
                 'name' => 'Apparel',
                 'slug' => 'apparel',
-                'icon' => 'Shirt',
-                'color' => 'bg-pink-100 text-pink-600',
             ],
             [
                 'name' => 'Home & Garden',
                 'slug' => 'home-garden',
-                'icon' => 'Home',
-                'color' => 'bg-green-100 text-green-600',
             ]
         ];
 

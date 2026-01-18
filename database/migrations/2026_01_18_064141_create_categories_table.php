@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('icon')->nullable(); // Lucide icon name
-            $table->string('color')->nullable(); // Color code or Tailwind class
             $table->timestamps();
         });
     }

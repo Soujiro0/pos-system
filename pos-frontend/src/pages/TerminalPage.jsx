@@ -133,56 +133,58 @@ export default function TerminalPage() {
     const total = totals?.total || 0;
 
     return (
-        <div className="flex h-screen bg-gray-50 overflow-hidden font-sans">
+        <div className="flex h-screen bg-[var(--color-light)] overflow-hidden font-sans">
             {/* LEFT MAIN AREA */}
             <div className="flex-1 flex flex-col min-w-0 bg-white">
                 {/* Header / Search */}
-                <div className="bg-white border-b border-gray-100 p-4 sticky top-0 z-10 flex items-center justify-between gap-4">
+                <div className="bg-[var(--color-primary)] border-b border-[rgba(var(--color-light-rgb),0.1)] p-4 sticky top-0 z-10 flex items-center justify-between gap-4">
                     <div className="relative flex-1 max-w-xl">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-light)] opacity-50" />
                         <input
                             ref={searchInputRef}
                             type="text"
                             placeholder="Search products... (F2)"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-transparent focus:bg-white focus:border-indigo-500 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:outline-none text-gray-900 transition-all font-medium"
+                            className="w-full pl-12 pr-4 py-3 bg-[rgba(var(--color-light-rgb),0.1)] border border-transparent focus:bg-white focus:border-[var(--color-secondary)] rounded-xl focus:ring-4 focus:ring-[rgba(var(--color-secondary-rgb),0.2)] focus:outline-none text-white placeholder:text-[var(--color-light)] placeholder:opacity-50 transition-all font-medium"
                         />
                     </div>
-                    <button
-                        onClick={() => setIsShortcutsOpen(true)}
-                        className="p-3 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
-                        title="Keyboard Shortcuts"
-                    >
-                        <Keyboard className="w-5 h-5" />
-                    </button>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => setIsShortcutsOpen(true)}
+                            className="p-3 bg-[rgba(var(--color-light-rgb),0.1)] hover:bg-[rgba(var(--color-light-rgb),0.2)] rounded-xl transition-all"
+                            title="Keyboard Shortcuts"
+                        >
+                            <Keyboard className="w-5 h-5 text-[var(--color-light)]" />
+                        </button>
+                    </div>
                 </div>
 
                 <div className="flex flex-1 overflow-hidden">
                     {/* Categories Sidebar */}
-                    <div className="w-24 lg:w-28 flex flex-col items-center py-6 space-y-3 overflow-y-auto border-r border-gray-100 bg-gray-50/50">
+                    <div className="w-24 lg:w-28 flex flex-col items-center py-6 space-y-3 overflow-y-auto border-r border-accent/10 bg-light/30/50">
                         <button
                             onClick={() => setSelectedCategory(null)}
                             className={`flex flex-col items-center justify-center p-3 rounded-2xl transition-all w-20 h-20 gap-1.5 ${!selectedCategory
-                                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 ring-2 ring-indigo-600 ring-offset-2'
-                                : 'text-gray-500 hover:bg-white hover:text-indigo-600 hover:shadow-md'
+                                ? 'bg-[var(--color-secondary)] text-white shadow-lg ring-2 ring-[var(--color-secondary)] ring-offset-2'
+                                : 'text-[var(--color-accent)] hover:bg-white hover:text-[var(--color-primary)] hover:shadow-md'
                                 }`}
                         >
-                            <div className={`p-1.5 rounded-full ${!selectedCategory ? 'bg-white/20' : 'bg-gray-100'}`}>
+                            <div className={`p-1.5 rounded-full ${!selectedCategory ? 'bg-[rgba(var(--color-light-rgb),0.2)]' : 'bg-[var(--color-light)]'}`}>
                                 <Search className="w-5 h-5" />
                             </div>
                             <span className="text-[10px] font-bold uppercase tracking-wide">All</span>
                         </button>
 
-                        <div className="w-16 h-px bg-gray-200 my-2" />
+                        <div className="w-16 h-px bg-light/70 my-2" />
 
                         {categories.map((cat) => (
                             <button
                                 key={cat.id}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`flex flex-col items-center justify-center p-2 rounded-2xl transition-all w-20 h-20 gap-1 ${selectedCategory?.id === cat.id
-                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 ring-2 ring-indigo-600 ring-offset-2'
-                                    : 'text-gray-500 hover:bg-white hover:text-indigo-600 hover:shadow-md'
+                                    ? 'bg-secondary text-white shadow-lg shadow-secondary/30 ring-2 ring-secondary ring-offset-2'
+                                    : 'text-accent hover:bg-white hover:text-secondary hover:shadow-md'
                                     }`}
                             >
                                 <span className="text-xl">{cat.icon || cat.name.charAt(0)}</span>
@@ -194,7 +196,7 @@ export default function TerminalPage() {
                     </div>
 
                     {/* Product Grid */}
-                    <div className="flex-1 p-6 overflow-y-scroll bg-gray-50">
+                    <div className="flex-1 p-6 overflow-y-scroll bg-light/30">
                         {isProductsLoading ? (
                             <div className="flex items-center justify-center h-full text-gray-400 animate-pulse">
                                 Loading products...
@@ -205,9 +207,9 @@ export default function TerminalPage() {
                                     <button
                                         key={product.id}
                                         onClick={() => addItem(product)}
-                                        className="group bg-white rounded-2xl border border-gray-200 p-3 flex flex-col items-start hover:border-indigo-600 hover:ring-2 hover:ring-indigo-600/20 hover:shadow-xl transition-all duration-200 text-left relative overflow-hidden h-full"
+                                        className="group bg-white rounded-2xl border border-accent/20 p-3 flex flex-col items-start hover:border-secondary hover:ring-2 hover:ring-secondary/20 hover:shadow-xl transition-all duration-200 text-left relative overflow-hidden h-full"
                                     >
-                                        <div className="w-full aspect-4/3 bg-gray-100 rounded-xl mb-3 overflow-hidden relative">
+                                        <div className="w-full aspect-4/3 bg-light/50 rounded-xl mb-3 overflow-hidden relative">
                                             {product.image_url ? (
                                                 <img
                                                     src={product.image_url}
@@ -229,13 +231,13 @@ export default function TerminalPage() {
                                             )}
                                         </div>
 
-                                        <h3 className="font-bold text-gray-800 text-sm line-clamp-2 leading-tight mb-auto group-hover:text-indigo-600 px-1">
+                                        <h3 className="font-bold text-primary text-sm line-clamp-2 leading-tight mb-auto group-hover:text-secondary px-1">
                                             {product.name}
                                         </h3>
 
                                         <div className="w-full pt-3 mt-2 flex items-center justify-between border-t border-gray-50">
-                                            <span className="font-bold text-lg text-indigo-600">₱{Number(product.price).toFixed(2)}</span>
-                                            <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-indigo-600 group-hover:text-white transition-colors shadow-sm">
+                                            <span className="font-bold text-lg text-secondary">₱{Number(product.price).toFixed(2)}</span>
+                                            <div className="w-8 h-8 rounded-full bg-light/30 flex items-center justify-center text-gray-400 group-hover:bg-secondary group-hover:text-white transition-colors shadow-sm">
                                                 <Plus className="w-4 h-4" />
                                             </div>
                                         </div>
@@ -248,10 +250,10 @@ export default function TerminalPage() {
             </div>
 
             {/* RIGHT SIDEBAR - CART */}
-            <div className="w-96 bg-white border-l border-gray-200 flex flex-col shadow-2xl z-30 relative">
-                <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-white">
+            <div className="w-96 bg-white border-l border-accent/20 flex flex-col z-30 relative">
+                <div className="p-5 border-b border-accent/10 flex justify-between items-center bg-white">
                     <div>
-                        <h2 className="font-bold text-lg text-gray-800">Current Sale</h2>
+                        <h2 className="font-bold text-lg text-primary">Current Sale</h2>
                         <span className="text-xs text-gray-400 font-medium">{new Date().toLocaleDateString()}</span>
                     </div>
                     <button
@@ -263,28 +265,28 @@ export default function TerminalPage() {
                     </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50/30">
+                <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-light/30/30">
                     {cartItems.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-full text-gray-400 space-y-4">
-                            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
+                            <div className="w-20 h-20 rounded-full bg-light/50 flex items-center justify-center">
                                 <CreditCard className="w-8 h-8 opacity-30" />
                             </div>
                             <p className="text-sm font-medium">Cart is empty</p>
                         </div>
                     ) : (
                         cartItems.map((item) => (
-                            <div key={item.id} className="flex gap-4 p-3 bg-white rounded-xl shadow-sm border border-gray-100 group hover:border-indigo-200 transition-all">
-                                <div className="flex flex-col items-center justify-center gap-1 bg-gray-50 rounded-lg p-1">
+                            <div key={item.id} className="flex gap-4 p-3 bg-white rounded-xl shadow-sm border border-accent/10 group hover:border-indigo-200 transition-all">
+                                <div className="flex flex-col items-center justify-center gap-1 bg-light/30 rounded-lg p-1">
                                     <button
                                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                        className="w-6 h-6 rounded bg-white shadow-sm text-gray-600 hover:text-indigo-600 hover:shadow flex items-center justify-center transition-all"
+                                        className="w-6 h-6 rounded bg-white shadow-sm text-primary hover:text-secondary hover:shadow flex items-center justify-center transition-all"
                                     >
                                         <Plus className="w-3 h-3" />
                                     </button>
-                                    <span className="font-bold text-sm w-6 text-center text-gray-800">{item.quantity}</span>
+                                    <span className="font-bold text-sm w-6 text-center text-primary">{item.quantity}</span>
                                     <button
                                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                        className="w-6 h-6 rounded bg-white shadow-sm text-gray-600 hover:text-rose-600 hover:shadow flex items-center justify-center transition-all"
+                                        className="w-6 h-6 rounded bg-white shadow-sm text-primary hover:text-rose-600 hover:shadow flex items-center justify-center transition-all"
                                     >
                                         <Minus className="w-3 h-3" />
                                     </button>
@@ -292,7 +294,7 @@ export default function TerminalPage() {
 
                                 <div className="flex-1 min-w-0 flex flex-col justify-center">
                                     <div className="flex justify-between items-start mb-1">
-                                        <h4 className="font-semibold text-sm text-gray-900 line-clamp-2 leading-tight">
+                                        <h4 className="font-semibold text-sm text-primary line-clamp-2 leading-tight">
                                             {item.name}
                                         </h4>
                                         <button
@@ -303,10 +305,10 @@ export default function TerminalPage() {
                                         </button>
                                     </div>
                                     <div className="flex justify-between items-end">
-                                        <span className="text-xs text-gray-500">
+                                        <span className="text-xs text-accent">
                                             ₱{Number(item.price).toFixed(2)} / unit
                                         </span>
-                                        <span className="font-bold text-gray-900">
+                                        <span className="font-bold text-primary">
                                             ₱{(item.price * item.quantity).toFixed(2)}
                                         </span>
                                     </div>
@@ -317,20 +319,20 @@ export default function TerminalPage() {
                 </div>
 
                 {/* Footer / Totals */}
-                <div className="p-6 bg-white border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.02)] z-20">
+                <div className="p-6 bg-white border-t border-accent/10 shadow-[0_-4px_20px_rgba(0,0,0,0.02)] z-20">
                     <div className="space-y-3 mb-6">
                         <div className="flex justify-between text-sm">
-                            <span className="text-gray-500">Subtotal</span>
-                            <span className="font-medium text-gray-900">₱{subtotal.toFixed(2)}</span>
+                            <span className="text-accent">Subtotal</span>
+                            <span className="font-medium text-primary">₱{subtotal.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                            <span className="text-gray-500">Tax</span>
-                            <span className="font-medium text-gray-900">₱{tax.toFixed(2)}</span>
+                            <span className="text-accent">Tax</span>
+                            <span className="font-medium text-primary">₱{tax.toFixed(2)}</span>
                         </div>
-                        <div className="h-px bg-gray-100 my-2" />
+                        <div className="h-px bg-light/50 my-2" />
                         <div className="flex justify-between items-end">
-                            <span className="text-base font-bold text-gray-800">Total</span>
-                            <span className="text-3xl font-extrabold text-indigo-600 leading-none">₱{total.toFixed(2)}</span>
+                            <span className="text-base font-bold text-primary">Total</span>
+                            <span className="text-3xl font-extrabold text-secondary leading-none">₱{total.toFixed(2)}</span>
                         </div>
                     </div>
 
@@ -338,7 +340,7 @@ export default function TerminalPage() {
                         <button
                             onClick={() => handleCheckout('card')}
                             disabled={cartItems.length === 0}
-                            className="flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 py-3.5 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center justify-center gap-2 bg-light/50 hover:bg-light/70 text-primary py-3.5 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <CreditCard className="w-5 h-5" />
                             Card
@@ -346,7 +348,7 @@ export default function TerminalPage() {
                         <button
                             onClick={() => handleCheckout('cash')}
                             disabled={cartItems.length === 0}
-                            className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-indigo-600/30 transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-secondary/30 transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Pay Cash
                         </button>
@@ -370,12 +372,12 @@ export default function TerminalPage() {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in">
                     <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in zoom-in-95">
                         <div className="flex justify-between items-center mb-6">
-                            <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                                <Keyboard className="w-6 h-6 text-indigo-600" />
+                            <h3 className="text-xl font-bold text-primary flex items-center gap-2">
+                                <Keyboard className="w-6 h-6 text-secondary" />
                                 Keyboard Shortcuts
                             </h3>
-                            <button onClick={() => setIsShortcutsOpen(false)} className="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-100">
-                                <Minus className="w-5 h-5 rotate-45" />
+                            <button onClick={() => setIsShortcutsOpen(false)} className="text-gray-400 hover:text-primary p-1 rounded-full hover:bg-light/50">
+                                <Minus className="w-5 h-5" />
                             </button>
                         </div>
 
@@ -386,16 +388,16 @@ export default function TerminalPage() {
                                 { key: 'F4', action: 'Clear Cart' },
                                 { key: 'Esc', action: 'Clear Search / Cancel' },
                             ].map((shortcut) => (
-                                <div key={shortcut.key} className="flex justify-between items-center p-3 bg-gray-50 rounded-xl border border-gray-100">
-                                    <span className="text-gray-600 font-medium">{shortcut.action}</span>
-                                    <kbd className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-sm font-bold text-gray-800 shadow-sm min-w-12 text-center">
+                                <div key={shortcut.key} className="flex justify-between items-center p-3 bg-light/30 rounded-xl border border-accent/10">
+                                    <span className="text-primary font-medium">{shortcut.action}</span>
+                                    <kbd className="px-3 py-1.5 bg-white border border-accent/20 rounded-lg text-sm font-bold text-primary shadow-sm min-w-12 text-center">
                                         {shortcut.key}
                                     </kbd>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+                        <div className="mt-6 pt-4 border-t border-accent/10 text-center">
                             <p className="text-xs text-gray-400">Pro Tip: Use Enter to quickly add searched items.</p>
                         </div>
                     </div>

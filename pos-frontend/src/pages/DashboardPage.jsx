@@ -22,7 +22,7 @@ export default function DashboardPage() {
     if (loading) return (
         <div className="flex h-96 items-center justify-center">
             <div className="flex flex-col items-center gap-4">
-                <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
                 <span className="text-gray-400 font-medium">Loading Overview...</span>
             </div>
         </div>
@@ -43,8 +43,8 @@ export default function DashboardPage() {
         <div className="space-y-8 animate-in fade-in duration-500">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Dashboard Overview</h1>
-                    <p className="text-gray-500 mt-1">Real-time business insights for today.</p>
+                    <h1 className="text-3xl font-bold text-primary tracking-tight">Dashboard Overview</h1>
+                    <p className="text-accent mt-1">Real-time business insights for today.</p>
                 </div>
                 <div className="flex items-center gap-2 text-sm font-medium text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
@@ -69,8 +69,8 @@ export default function DashboardPage() {
                     icon={TrendingUp}
                     trend="+8% margin"
                     trendUp={true}
-                    color="text-indigo-600"
-                    bg="bg-indigo-50"
+                    color="text-secondary"
+                    bg="bg-secondary/10"
                 />
                 <MetricCard
                     title="Transactions"
@@ -78,8 +78,8 @@ export default function DashboardPage() {
                     icon={Package}
                     trend="Steady volume"
                     trendUp={null}
-                    color="text-blue-600"
-                    bg="bg-blue-50"
+                    color="text-secondary"
+                    bg="bg-secondary/10"
                 />
                 <MetricCard
                     title="Low Stock"
@@ -96,10 +96,10 @@ export default function DashboardPage() {
             {/* Charts Row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Sales Chart */}
-                <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+                <div className="bg-white rounded-3xl shadow-sm border border-accent/10 p-6">
                     <div className="flex justify-between items-center mb-6">
                         <div>
-                            <h2 className="font-bold text-gray-800 text-lg">Sales</h2>
+                            <h2 className="font-bold text-primary text-lg">Sales</h2>
                             <p className="text-xs text-gray-400">Revenue for the last 7 days</p>
                         </div>
                     </div>
@@ -131,10 +131,10 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Net Profit Chart */}
-                <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+                <div className="bg-white rounded-3xl shadow-sm border border-accent/10 p-6">
                     <div className="flex justify-between items-center mb-6">
                         <div>
-                            <h2 className="font-bold text-gray-800 text-lg">Net Profit</h2>
+                            <h2 className="font-bold text-primary text-lg">Net Profit</h2>
                             <p className="text-xs text-gray-400">Profit for the last 7 days</p>
                         </div>
                     </div>
@@ -169,32 +169,32 @@ export default function DashboardPage() {
             {/* Top Products Row */}
             <div className="grid grid-cols-1 gap-8">
                 {/* Top Products */}
-                <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-                    <div className="p-6 border-b border-gray-50 bg-gray-50/30">
-                        <h2 className="font-bold text-gray-800 text-lg">Top Products</h2>
+                <div className="bg-white rounded-3xl shadow-sm border border-accent/10 overflow-hidden flex flex-col">
+                    <div className="p-6 border-b border-gray-50 bg-light/30/30">
+                        <h2 className="font-bold text-primary text-lg">Top Products</h2>
                         <p className="text-xs text-gray-400">Best performers this week</p>
                     </div>
                     <div className="overflow-x-auto flex-1">
                         <table className="w-full text-left">
                             <tbody className="divide-y divide-gray-50">
                                 {top_products.map((p, i) => (
-                                    <tr key={i} className="group hover:bg-gray-50/80 transition-colors">
+                                    <tr key={i} className="group hover:bg-light/30/80 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
                                                 <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${i === 0 ? 'bg-amber-100 text-amber-600' :
                                                     i === 1 ? 'bg-slate-100 text-slate-600' :
-                                                        i === 2 ? 'bg-orange-50 text-orange-600' : 'bg-gray-50 text-gray-400'
+                                                        i === 2 ? 'bg-orange-50 text-orange-600' : 'bg-light/30 text-gray-400'
                                                     }`}>
                                                     {i + 1}
                                                 </div>
                                                 <div className="flex flex-col">
-                                                    <span className="font-bold text-gray-700 text-sm">{p.product_name}</span>
+                                                    <span className="font-bold text-primary text-sm">{p.product_name}</span>
                                                     <span className="text-xs text-gray-400">{p.total_quantity} units</span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <span className="font-bold text-indigo-600 font-mono text-sm">₱{parseFloat(p.total_revenue).toFixed(0)}</span>
+                                            <span className="font-bold text-secondary font-mono text-sm">₱{parseFloat(p.total_revenue).toFixed(0)}</span>
                                         </td>
                                     </tr>
                                 ))}
@@ -209,7 +209,7 @@ export default function DashboardPage() {
 
 function MetricCard({ title, value, icon: Icon, trend, trendUp, color, bg, isAlert }) {
     return (
-        <div className={`relative overflow-hidden p-6 rounded-3xl shadow-sm border border-gray-100 bg-white group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 ${isAlert ? 'ring-2 ring-rose-500 ring-offset-2' : ''}`}>
+        <div className={`relative overflow-hidden p-6 rounded-3xl shadow-sm border border-accent/10 bg-white group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 ${isAlert ? 'ring-2 ring-rose-500 ring-offset-2' : ''}`}>
             <div className="flex justify-between items-start mb-4 relative z-10">
                 <div className={`w-12 h-12 rounded-2xl ${bg} ${color} flex items-center justify-center shadow-sm`}>
                     <Icon className="w-6 h-6" />
@@ -224,8 +224,8 @@ function MetricCard({ title, value, icon: Icon, trend, trendUp, color, bg, isAle
             </div>
 
             <div className="relative z-10">
-                <p className="text-sm font-medium text-gray-500 mb-1">{title}</p>
-                <h3 className="text-2xl font-black text-gray-900 tracking-tight">{value}</h3>
+                <p className="text-sm font-medium text-accent mb-1">{title}</p>
+                <h3 className="text-2xl font-black text-primary tracking-tight">{value}</h3>
                 {trend && <p className="text-xs text-gray-400 mt-2 font-medium">{trend}</p>}
             </div>
         </div>
