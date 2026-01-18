@@ -29,6 +29,8 @@ class Product extends Model
         'attributes' => 'array',
     ];
 
+    protected $appends = ['category_name'];
+
     public function inventory()
     {
         return $this->hasOne(Inventory::class, 'product_id');
@@ -37,5 +39,10 @@ class Product extends Model
     public function categoryRelation()
     {
         return $this->belongsTo(Category::class, 'category', 'id');
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        return $this->categoryRelation?->name ?? 'Uncategorized';
     }
 }

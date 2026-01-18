@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Plus, Search, Filter, Loader2, Calculator, LayoutGrid, List, MoreHorizontal, Edit, Trash2, Package } from 'lucide-react';
+import { Plus, Search, Filter, Loader2, LayoutGrid, List, MoreHorizontal, Edit, Trash2, Package } from 'lucide-react';
 import { toast } from 'sonner';
 import ProductCard from '../components/ProductCard';
 import ProductFormModal from '../components/ProductFormModal';
 import InventoryModal from '../components/InventoryModal';
 import ConfirmationModal from '../components/ConfirmationModal';
 import Pagination from '../components/Pagination';
-import PricingSimulator from '../components/PricingSimulator';
+
 import { useProducts, useDeleteProduct } from '../hooks/useProducts';
 
 export default function ProductsPage() {
@@ -20,7 +20,7 @@ export default function ProductsPage() {
     const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, id: null, name: '' });
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(15);
-    const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+
 
     const { data: products, isLoading, isError, error } = useProducts(searchTerm, categoryFilter, currentPage, perPage);
     const deleteMutation = useDeleteProduct();
@@ -75,13 +75,6 @@ export default function ProductsPage() {
                     <p className="text-accent text-sm">Manage your product catalog</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button
-                        onClick={() => setIsSimulatorOpen(true)}
-                        className="w-full md:w-auto flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-lg shadow-sm transition-all font-medium"
-                    >
-                        <Calculator className="w-5 h-5" />
-                        <span className="hidden md:inline">Simulate</span>
-                    </button>
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="w-full md:w-auto flex items-center justify-center space-x-2 bg-secondary hover:bg-secondary/90 text-white px-4 py-2.5 rounded-lg shadow-sm shadow-secondary/20 transition-all font-medium"
@@ -171,6 +164,7 @@ export default function ProductsPage() {
                                         <th className="px-6 py-4 font-semibold">Product</th>
                                         <th className="px-6 py-4 font-semibold">SKU</th>
                                         <th className="px-6 py-4 font-semibold">Category</th>
+                                        <th className="px-6 py-4 font-semibold">Cost</th>
                                         <th className="px-6 py-4 font-semibold">Price</th>
                                         <th className="px-6 py-4 font-semibold">Stock</th>
                                         <th className="px-6 py-4 font-semibold text-right">Actions</th>
@@ -194,7 +188,8 @@ export default function ProductsPage() {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 text-accent font-mono text-xs">{product.sku}</td>
-                                            <td className="px-6 py-4 text-accent">{product.category || '-'}</td>
+                                            <td className="px-6 py-4 text-accent">{product.category_name || '-'}</td>
+                                            <td className="px-6 py-4 font-medium text-accent">₱{parseFloat(product.cost || 0).toFixed(2)}</td>
                                             <td className="px-6 py-4 font-bold text-primary">₱{parseFloat(product.price).toFixed(2)}</td>
                                             <td className="px-6 py-4">
                                                 <div className={`flex items-center gap-2 ${(product.inventory?.quantity ?? 0) <= (product.inventory?.low_stock_threshold ?? 10) ? 'text-amber-600' : 'text-emerald-600'}`}>
@@ -257,13 +252,7 @@ export default function ProductsPage() {
                 />
             )}
 
-            {isSimulatorOpen && (
-                <PricingSimulator
-                    isOpen={isSimulatorOpen}
-                    onClose={() => setIsSimulatorOpen(false)}
-                    availableProducts={products?.data || []}
-                />
-            )}
+
 
             <ConfirmationModal
                 isOpen={deleteConfirmation.isOpen}

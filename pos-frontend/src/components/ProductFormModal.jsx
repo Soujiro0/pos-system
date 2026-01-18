@@ -7,6 +7,7 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
     const [formData, setFormData] = useState({
         name: '',
         price: '',
+        cost: '',
         sku: '',
         barcode: '',
         category: '',
@@ -25,6 +26,7 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
             setFormData({
                 name: product.name,
                 price: product.price,
+                cost: product.cost || '',
                 sku: product.sku || '',
                 barcode: product.barcode || '',
                 category: product.category || '',
@@ -36,6 +38,7 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
             setFormData({
                 name: '',
                 price: '',
+                cost: '',
                 sku: '',
                 barcode: '',
                 category: '',
@@ -136,6 +139,23 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                                     value={formData.price}
                                     onChange={handleChange}
                                     required
+                                    step="0.01"
+                                    min="0"
+                                    className="w-full pl-7 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                    placeholder="0.00"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-gray-700">Cost</label>
+                            <div className="relative">
+                                <span className="absolute left-3 top-2 text-gray-500">₱</span>
+                                <input
+                                    type="number"
+                                    name="cost"
+                                    value={formData.cost}
+                                    onChange={handleChange}
                                     step="0.01"
                                     min="0"
                                     className="w-full pl-7 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
