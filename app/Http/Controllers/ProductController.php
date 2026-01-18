@@ -59,6 +59,7 @@ class ProductController extends Controller
             'category' => 'nullable|string',
             'image_url' => 'nullable|url',
             'attributes' => 'nullable|array',
+            'initial_stock' => 'nullable|integer|min:0',
         ]);
 
         $product = $this->productService->createProduct($validatedData);

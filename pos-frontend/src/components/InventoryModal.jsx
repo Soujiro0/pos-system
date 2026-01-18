@@ -51,11 +51,11 @@ export default function InventoryModal({ product, isOpen, onClose }) {
                     <div className="flex-1">
                         <p className="text-sm font-medium text-accent mb-1">Current Stock</p>
                         <div className="flex items-center gap-3">
-                            <span className={`text-3xl font-bold ${isLowStock ? 'text-red-600' : 'text-primary'}`}>
+                            <span className={`text-3xl font-bold ${isLowStock ? 'text-error' : 'text-primary'}`}>
                                 {inventory?.quantity ?? '...'}
                             </span>
                             {isLowStock && (
-                                <span className="px-2.5 py-1 text-xs font-semibold bg-red-50 text-red-700 rounded-full border border-red-100 flex items-center gap-1">
+                                <span className="px-2.5 py-1 text-xs font-semibold bg-error/10 text-error rounded-full border border-error/10 flex items-center gap-1">
                                     <AlertCircle className="w-3 h-3" />
                                     Low Stock
                                 </span>
@@ -69,8 +69,8 @@ export default function InventoryModal({ product, isOpen, onClose }) {
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${activeTab === tab
-                                        ? 'bg-white text-primary shadow-sm'
-                                        : 'text-accent hover:text-primary'
+                                    ? 'bg-white text-primary shadow-sm'
+                                    : 'text-accent hover:text-primary'
                                     } capitalize`}
                             >
                                 {tab}
@@ -98,9 +98,9 @@ export default function InventoryModal({ product, isOpen, onClose }) {
                                             {inventory.transactions.map((tx) => (
                                                 <div key={tx.id} className="flex items-center justify-between p-3 rounded-lg border border-accent/10 hover:border-accent/20 transition-colors">
                                                     <div className="flex items-center gap-3">
-                                                        <div className={`p-2 rounded-full ${tx.type === 'in' ? 'bg-green-50 text-green-600' :
-                                                                tx.type === 'out' ? 'bg-red-50 text-red-600' :
-                                                                    'bg-blue-50 text-blue-600'
+                                                        <div className={`p-2 rounded-full ${tx.type === 'in' ? 'bg-success/10 text-success' :
+                                                            tx.type === 'out' ? 'bg-error/10 text-error' :
+                                                                'bg-secondary/10 text-secondary'
                                                             }`}>
                                                             {tx.type === 'in' ? <ArrowUpCircle className="w-5 h-5" /> :
                                                                 tx.type === 'out' ? <ArrowDownCircle className="w-5 h-5" /> :
@@ -111,8 +111,8 @@ export default function InventoryModal({ product, isOpen, onClose }) {
                                                             <p className="text-xs text-accent">{new Date(tx.created_at).toLocaleString()}</p>
                                                         </div>
                                                     </div>
-                                                    <span className={`font-mono font-medium ${tx.type === 'in' ? 'text-green-600' :
-                                                            tx.type === 'out' ? 'text-red-600' : 'text-blue-600'
+                                                    <span className={`font-mono font-medium ${tx.type === 'in' ? 'text-success' :
+                                                        tx.type === 'out' ? 'text-error' : 'text-secondary'
                                                         }`}>
                                                         {tx.type === 'in' ? '+' : tx.type === 'out' ? '-' : ''}{tx.quantity}
                                                     </span>
@@ -155,9 +155,9 @@ export default function InventoryModal({ product, isOpen, onClose }) {
                                     <button
                                         type="submit"
                                         disabled={mutation.isPending}
-                                        className={`w-full py-2.5 rounded-lg font-medium text-white shadow-sm transition-all flex items-center justify-center gap-2 ${activeTab === 'add' ? 'bg-green-600 hover:bg-green-700 shadow-green-200' :
-                                                activeTab === 'remove' ? 'bg-red-600 hover:bg-red-700 shadow-red-200' :
-                                                    'bg-blue-600 hover:bg-blue-700 shadow-blue-200'
+                                        className={`w-full py-2.5 rounded-lg font-medium text-white shadow-sm transition-all flex items-center justify-center gap-2 ${activeTab === 'add' ? 'bg-success hover:bg-success/90 shadow-success/20' :
+                                            activeTab === 'remove' ? 'bg-error hover:bg-error/90 shadow-error/20' :
+                                                'bg-secondary hover:bg-secondary/90 shadow-secondary/20'
                                             }`}
                                     >
                                         {mutation.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}

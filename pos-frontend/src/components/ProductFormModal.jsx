@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { X, Save, Loader2, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCreateProduct, useUpdateProduct } from '../hooks/useProducts';
+import { useCategories } from '../hooks/useCategories';
 
 export default function ProductFormModal({ product, isOpen, onClose }) {
     const [formData, setFormData] = useState({
@@ -13,11 +14,13 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
         category: '',
         description: '',
         image_url: '',
+        initial_stock: '0',
     });
     const [attributes, setAttributes] = useState([]);
 
     const createMutation = useCreateProduct();
     const updateMutation = useUpdateProduct();
+    const { data: categories } = useCategories();
     const isEditing = !!product;
     const isPending = createMutation.isPending || updateMutation.isPending;
 
@@ -44,6 +47,7 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                 category: '',
                 description: '',
                 image_url: '',
+                initial_stock: '0',
             });
             setAttributes([]);
         }
@@ -166,14 +170,19 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-primary">Category</label>
-                            <input
-                                type="text"
+                            <select
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
-                                placeholder="e.g. Electronics"
-                            />
+                                className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all bg-white cursor-pointer"
+                            >
+                                <option value="">Select Category</option>
+                                {categories?.map((cat) => (
+                                    <option key={cat.id} value={cat.id}>
+                                        {cat.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className="space-y-2">
@@ -188,6 +197,20 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                             />
                         </div>
 
+                        {!isEditing && (
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-primary">Initial Stock</label>
+                                <input
+                                    type="number"
+                                    name="initial_stock"
+                                    value={formData.initial_stock}
+                                    onChange={handleChange}
+                                    min="0"
+                                    className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
+                                    placeholder="0"
+                                />
+                            </div>
+                        )}
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-primary">SKU (Optional)</label>
                             <input

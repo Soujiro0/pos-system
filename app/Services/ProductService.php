@@ -35,9 +35,21 @@ class ProductService
         $product = Product::create($data);
 
         // Initialize inventory
-        \App\Models\Inventory::create([
+        $inventory = \App\Models\Inventory::create([
             'product_id' => $product->id,
+            'quantity' => $data['initial_stock'] ?? 0,
         ]);
+
+        // Record initial stock transaction if stock > 0
+        if (($data['initial_stock'] ?? 0) > 0) {
+            \App\Models\InventoryTransaction::create([
+                'inventory_id' => $inventory->id,
+                'type' => 'in',
+                'quantity' => $data['initial_stock'],
+                'reason' => 'Initial Stock',
+                'user_id' => auth()->id(),
+            ]);
+        }
 
         // Initialize Price Log/Entry if price provided
         if (isset($data['price'])) {

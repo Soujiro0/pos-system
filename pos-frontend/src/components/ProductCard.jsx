@@ -25,7 +25,7 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
                 <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <button
                         onClick={() => onManageStock(product)}
-                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-blue-50 text-primary hover:text-blue-600 transition-colors"
+                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-secondary/10 text-primary hover:text-secondary transition-colors"
                         title="Manage Stock"
                     >
                         <Package className="w-4 h-4" />
@@ -39,7 +39,7 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
                     </button>
                     <button
                         onClick={() => onDelete(product.id)}
-                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-red-50 text-primary hover:text-red-600 transition-colors"
+                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-error/10 text-primary hover:text-error transition-colors"
                         title="Delete Product"
                     >
                         <Trash2 className="w-4 h-4" />
@@ -47,7 +47,7 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
                 </div>
 
                 {isLowStock && (
-                    <div className="absolute top-2 left-2 px-2 py-1 bg-red-500/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider rounded">
+                    <div className="absolute top-2 left-2 px-2 py-1 bg-error/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider rounded">
                         Low Stock
                     </div>
                 )}
@@ -67,7 +67,7 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
                         <span className="block font-bold text-primary">
                             ₱{Number(product.price).toFixed(2)}
                         </span>
-                        <span className={`text-xs font-medium ${isLowStock ? 'text-red-600' : 'text-accent'}`}>
+                        <span className={`text-xs font-medium ${isLowStock ? 'text-error' : 'text-accent'}`}>
                             {stock} in stock
                         </span>
                     </div>
@@ -79,12 +79,12 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
                     </p>
                 )}
 
-                <div className="mt-auto pt-3 border-t border-gray-50 flex items-center justify-between text-xs">
-                    <span className="text-gray-400">
-                        {product.category || 'Uncategorized'}
+                <div className="mt-auto pt-3 border-t border-accent/10 flex items-center justify-between text-xs">
+                    <span className="text-accent">
+                        {product.category_name || 'Uncategorized'}
                     </span>
                     {product.barcode && (
-                        <span className="text-gray-400 font-mono">
+                        <span className="text-accent/70 font-mono">
                             {product.barcode}
                         </span>
                     )}

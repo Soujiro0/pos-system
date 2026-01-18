@@ -117,14 +117,14 @@ export default function ProductsPage() {
                 <div className="flex bg-white rounded-lg p-1 border border-accent/20 shadow-sm shrink-0">
                     <button
                         onClick={() => setViewMode('grid')}
-                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-secondary/10 text-secondary' : 'text-gray-400 hover:text-primary'}`}
+                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-secondary/10 text-secondary' : 'text-accent/70 hover:text-primary'}`}
                         title="Grid View"
                     >
                         <LayoutGrid className="w-5 h-5" />
                     </button>
                     <button
                         onClick={() => setViewMode('table')}
-                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-secondary/10 text-secondary' : 'text-gray-400 hover:text-primary'}`}
+                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-secondary/10 text-secondary' : 'text-accent/70 hover:text-primary'}`}
                         title="List View"
                     >
                         <List className="w-5 h-5" />
@@ -138,13 +138,13 @@ export default function ProductsPage() {
                     <Loader2 className="w-8 h-8 animate-spin text-secondary" />
                 </div>
             ) : isError ? (
-                <div className="bg-red-50 text-red-600 p-4 rounded-lg text-center">
+                <div className="bg-error/10 text-error p-4 rounded-lg text-center">
                     Error loading products: {error.message}
                 </div>
             ) : products?.data?.length === 0 ? (
                 <div className="text-center py-12 bg-white rounded-xl border border-accent/10 border-dashed">
                     <div className="w-16 h-16 bg-light/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Search className="w-8 h-8 text-gray-400" />
+                        <Search className="w-8 h-8 text-accent/50" />
                     </div>
                     <h3 className="text-lg font-medium text-primary mb-1">No products found</h3>
                     <p className="text-accent">Try adjusting your search or add a new product.</p>

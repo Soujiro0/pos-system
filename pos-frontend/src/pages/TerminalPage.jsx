@@ -225,7 +225,7 @@ export default function TerminalPage() {
 
                                             {/* Stock Badge */}
                                             {(product.inventory?.quantity || 0) < 10 && (
-                                                <div className="absolute top-2 left-2 bg-rose-500/90 backdrop-blur text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm">
+                                                <div className="absolute top-2 left-2 bg-error/90 backdrop-blur text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm">
                                                     {product.inventory?.quantity} Left
                                                 </div>
                                             )}
@@ -235,7 +235,7 @@ export default function TerminalPage() {
                                             {product.name}
                                         </h3>
 
-                                        <div className="w-full pt-3 mt-2 flex items-center justify-between border-t border-gray-50">
+                                        <div className="w-full pt-3 mt-2 flex items-center justify-between border-t border-accent/10">
                                             <span className="font-bold text-lg text-secondary">₱{Number(product.price).toFixed(2)}</span>
                                             <div className="w-8 h-8 rounded-full bg-light/30 flex items-center justify-center text-gray-400 group-hover:bg-secondary group-hover:text-white transition-colors shadow-sm">
                                                 <Plus className="w-4 h-4" />
