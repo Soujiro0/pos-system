@@ -6,8 +6,8 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
     const isLowStock = stock <= threshold;
 
     return (
-        <div className="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col h-full relative">
-            <div className="relative h-48 bg-gray-50 flex items-center justify-center overflow-hidden">
+        <div className="group bg-white rounded-xl border border-accent/10 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col h-full relative">
+            <div className="relative h-48 bg-light/30 flex items-center justify-center overflow-hidden">
                 {product.image_url ? (
                     <img
                         src={product.image_url}
@@ -25,21 +25,21 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
                 <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <button
                         onClick={() => onManageStock(product)}
-                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-colors"
+                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-blue-50 text-primary hover:text-blue-600 transition-colors"
                         title="Manage Stock"
                     >
                         <Package className="w-4 h-4" />
                     </button>
                     <button
                         onClick={() => onEdit(product)}
-                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-indigo-50 text-gray-600 hover:text-indigo-600 transition-colors"
+                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-secondary/10 text-primary hover:text-secondary transition-colors"
                         title="Edit Product"
                     >
                         <Edit2 className="w-4 h-4" />
                     </button>
                     <button
                         onClick={() => onDelete(product.id)}
-                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-red-50 text-gray-600 hover:text-red-600 transition-colors"
+                        className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm hover:bg-red-50 text-primary hover:text-red-600 transition-colors"
                         title="Delete Product"
                     >
                         <Trash2 className="w-4 h-4" />
@@ -56,25 +56,25 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
             <div className="p-4 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
                     <div>
-                        <h3 className="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
+                        <h3 className="font-semibold text-primary group-hover:text-secondary transition-colors line-clamp-1">
                             {product.name}
                         </h3>
-                        <p className="text-xs text-gray-500 font-mono mt-0.5">
+                        <p className="text-xs text-accent font-mono mt-0.5">
                             {product.sku}
                         </p>
                     </div>
                     <div className="text-right">
-                        <span className="block font-bold text-gray-900">
+                        <span className="block font-bold text-primary">
                             ₱{Number(product.price).toFixed(2)}
                         </span>
-                        <span className={`text-xs font-medium ${isLowStock ? 'text-red-600' : 'text-gray-500'}`}>
+                        <span className={`text-xs font-medium ${isLowStock ? 'text-red-600' : 'text-accent'}`}>
                             {stock} in stock
                         </span>
                     </div>
                 </div>
 
                 {product.description && (
-                    <p className="text-sm text-gray-500 line-clamp-2 mb-3 grow">
+                    <p className="text-sm text-accent line-clamp-2 mb-3 grow">
                         {product.description}
                     </p>
                 )}

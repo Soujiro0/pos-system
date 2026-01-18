@@ -105,11 +105,11 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
     return (
         <div className="fixed top-0 left-0 right-0 bottom-0 z-100 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-hidden">
             <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl relative">
-                <div className="flex items-center justify-between p-6 border-b border-gray-100 sticky top-0 bg-white z-10">
-                    <h2 className="text-xl font-bold text-gray-900">
+                <div className="flex items-center justify-between p-6 border-b border-accent/10 sticky top-0 bg-white z-10">
+                    <h2 className="text-xl font-bold text-primary">
                         {isEditing ? 'Edit Product' : 'Add New Product'}
                     </h2>
-                    <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full text-gray-500 transition-colors">
+                    <button onClick={onClose} className="p-2 hover:bg-light/50 rounded-full text-accent transition-colors">
                         <X className="w-5 h-5" />
                     </button>
                 </div>
@@ -117,22 +117,22 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                 <form onSubmit={handleSubmit} className="p-6 space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">Product Name *</label>
+                            <label className="text-sm font-medium text-primary">Product Name *</label>
                             <input
                                 type="text"
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                 placeholder="e.g. Wireless Mouse"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">Price *</label>
+                            <label className="text-sm font-medium text-primary">Price *</label>
                             <div className="relative">
-                                <span className="absolute left-3 top-2 text-gray-500">₱</span>
+                                <span className="absolute left-3 top-2 text-accent">₱</span>
                                 <input
                                     type="number"
                                     name="price"
@@ -141,16 +141,16 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                                     required
                                     step="0.01"
                                     min="0"
-                                    className="w-full pl-7 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                    className="w-full pl-7 pr-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                     placeholder="0.00"
                                 />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">Cost</label>
+                            <label className="text-sm font-medium text-primary">Cost</label>
                             <div className="relative">
-                                <span className="absolute left-3 top-2 text-gray-500">₱</span>
+                                <span className="absolute left-3 top-2 text-accent">₱</span>
                                 <input
                                     type="number"
                                     name="cost"
@@ -158,69 +158,69 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                                     onChange={handleChange}
                                     step="0.01"
                                     min="0"
-                                    className="w-full pl-7 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                    className="w-full pl-7 pr-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                     placeholder="0.00"
                                 />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">Category</label>
+                            <label className="text-sm font-medium text-primary">Category</label>
                             <input
                                 type="text"
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                 placeholder="e.g. Electronics"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">Image URL</label>
+                            <label className="text-sm font-medium text-primary">Image URL</label>
                             <input
                                 type="url"
                                 name="image_url"
                                 value={formData.image_url}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                 placeholder="https://example.com/image.jpg"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">SKU (Optional)</label>
+                            <label className="text-sm font-medium text-primary">SKU (Optional)</label>
                             <input
                                 type="text"
                                 name="sku"
                                 value={formData.sku}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                 placeholder="Leave blank to auto-generate"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">Barcode</label>
+                            <label className="text-sm font-medium text-primary">Barcode</label>
                             <input
                                 type="text"
                                 name="barcode"
                                 value={formData.barcode}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                 placeholder="Scan barcode..."
                             />
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">Description</label>
+                        <label className="text-sm font-medium text-primary">Description</label>
                         <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
                             rows="3"
-                            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all resize-none"
+                            className="w-full px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all resize-none"
                             placeholder="Product description..."
                         ></textarea>
                     </div>
@@ -228,11 +228,11 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                     {/* Attributes Section */}
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <label className="text-sm font-medium text-gray-700">Attributes</label>
+                            <label className="text-sm font-medium text-primary">Attributes</label>
                             <button
                                 type="button"
                                 onClick={handleAddAttribute}
-                                className="text-sm text-indigo-600 hover:text-indigo-700 font-medium flex items-center space-x-1"
+                                className="text-sm text-secondary hover:text-indigo-700 font-medium flex items-center space-x-1"
                             >
                                 <Plus className="w-4 h-4" />
                                 <span>Add Attribute</span>
@@ -247,14 +247,14 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                                         value={attr.key}
                                         onChange={(e) => handleAttributeChange(index, 'key', e.target.value)}
                                         placeholder="Name (e.g. Color)"
-                                        className="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                        className="flex-1 px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                     />
                                     <input
                                         type="text"
                                         value={attr.value}
                                         onChange={(e) => handleAttributeChange(index, 'value', e.target.value)}
                                         placeholder="Value (e.g. Red)"
-                                        className="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                                        className="flex-1 px-4 py-2 rounded-lg border border-accent/20 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                                     />
                                     <button
                                         type="button"
@@ -266,25 +266,25 @@ export default function ProductFormModal({ product, isOpen, onClose }) {
                                 </div>
                             ))}
                             {attributes.length === 0 && (
-                                <p className="text-sm text-gray-400 italic text-center py-2 border border-dashed border-gray-200 rounded-lg">
+                                <p className="text-sm text-gray-400 italic text-center py-2 border border-dashed border-accent/20 rounded-lg">
                                     No attributes added. Click "Add Attribute" to define custom properties.
                                 </p>
                             )}
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+                    <div className="flex items-center justify-end space-x-3 pt-4 border-t border-accent/10">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                            className="px-4 py-2 text-sm font-medium text-primary hover:bg-light/50 rounded-lg transition-colors"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
                             disabled={isPending}
-                            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm shadow-indigo-200 transition-all flex items-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="px-4 py-2 text-sm font-medium text-white bg-secondary hover:bg-secondary/90 rounded-lg shadow-sm shadow-secondary/20 transition-all flex items-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {isPending ? (
                                 <>

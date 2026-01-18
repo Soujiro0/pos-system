@@ -93,23 +93,23 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
         <>
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-40 p-4">
                 <div className="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
-                    <div className="flex justify-between items-center p-6 border-b border-gray-100">
+                    <div className="flex justify-between items-center p-6 border-b border-accent/10">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-indigo-50 rounded-lg">
-                                <Calculator className="w-6 h-6 text-indigo-600" />
+                            <div className="p-2 bg-secondary/10 rounded-lg">
+                                <Calculator className="w-6 h-6 text-secondary" />
                             </div>
-                            <h2 className="text-xl font-bold text-gray-900">Pricing Simulator</h2>
+                            <h2 className="text-xl font-bold text-primary">Pricing Simulator</h2>
                         </div>
-                        <button onClick={onClose} className="text-gray-400 hover:text-gray-500 hover:bg-gray-100 p-2 rounded-full transition-colors">
+                        <button onClick={onClose} className="text-gray-400 hover:text-accent hover:bg-light/50 p-2 rounded-full transition-colors">
                             <X className="w-5 h-5" />
                         </button>
                     </div>
 
                     <div className="flex grow overflow-hidden">
-                        <div className="w-1/2 p-6 border-r border-gray-100 overflow-y-auto flex flex-col gap-6">
+                        <div className="w-1/2 p-6 border-r border-accent/10 overflow-y-auto flex flex-col gap-6">
                             <div className="flex gap-2">
                                 <select
-                                    className="grow border border-gray-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20"
+                                    className="grow border border-accent/20 rounded-lg px-3 py-2 focus:ring-2 focus:ring-secondary/20"
                                     value={selectedProductId}
                                     onChange={(e) => setSelectedProductId(e.target.value)}
                                 >
@@ -120,7 +120,7 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
                                 </select>
                                 <button
                                     onClick={addToCart}
-                                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                                    className="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary/90 disabled:opacity-50"
                                     disabled={!selectedProductId}
                                 >
                                     <Plus className="w-5 h-5" />
@@ -129,16 +129,16 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
 
                             <div className="flex-1 space-y-3">
                                 {cartItems.map(item => (
-                                    <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg group">
+                                    <div key={item.id} className="flex items-center justify-between p-3 bg-light/30 rounded-lg group">
                                         <div>
-                                            <p className="font-medium text-gray-900">{item.name}</p>
-                                            <p className="text-sm text-gray-500">₱{item.price}</p>
+                                            <p className="font-medium text-primary">{item.name}</p>
+                                            <p className="text-sm text-accent">₱{item.price}</p>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+                                            <div className="flex items-center border border-accent/20 rounded-lg overflow-hidden">
                                                 <button
                                                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                    className="px-2 py-1 hover:bg-gray-100 text-gray-600 transition-colors"
+                                                    className="px-2 py-1 hover:bg-light/50 text-primary transition-colors"
                                                 >
                                                     -
                                                 </button>
@@ -151,7 +151,7 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
                                                 />
                                                 <button
                                                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                                    className="px-2 py-1 hover:bg-gray-100 text-gray-600 transition-colors"
+                                                    className="px-2 py-1 hover:bg-light/50 text-primary transition-colors"
                                                 >
                                                     +
                                                 </button>
@@ -163,20 +163,20 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
                                     </div>
                                 ))}
                                 {cartItems.length === 0 && (
-                                    <div className="text-center py-10 text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
+                                    <div className="text-center py-10 text-gray-400 border-2 border-dashed border-accent/20 rounded-lg">
                                         Cart is empty
                                     </div>
                                 )}
                             </div>
 
-                            <div className="space-y-4 pt-4 border-t border-gray-100">
+                            <div className="space-y-4 pt-4 border-t border-accent/10">
                                 <div className="flex gap-2">
                                     <div className="relative grow">
                                         <Tag className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
                                         <input
                                             type="text"
                                             placeholder="Enter promo code (e.g. PROMO10)"
-                                            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg"
+                                            className="w-full pl-9 pr-4 py-2 border border-accent/20 rounded-lg"
                                             value={discountCode}
                                             onChange={(e) => setDiscountCode(e.target.value)}
                                         />
@@ -185,14 +185,14 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
                                 <button
                                     onClick={handleCalculate}
                                     disabled={cartItems.length === 0 || calculateMutation.isPending}
-                                    className="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 disabled:opacity-50 flex justify-center items-center gap-2"
+                                    className="w-full bg-secondary text-white py-3 rounded-lg font-medium hover:bg-secondary/90 disabled:opacity-50 flex justify-center items-center gap-2"
                                 >
                                     {calculateMutation.isPending ? 'Calculating...' : 'Calculate Totals'}
                                 </button>
                             </div>
                         </div>
 
-                        <div className="w-1/2 p-6 bg-gray-50 overflow-y-auto">
+                        <div className="w-1/2 p-6 bg-light/30 overflow-y-auto">
                             {!calculationResult ? (
                                 <div className="h-full flex flex-col items-center justify-center text-gray-400">
                                     <Calculator className="w-12 h-12 mb-4 opacity-20" />
@@ -214,14 +214,14 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
                                         </div>
                                     )}
 
-                                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
+                                    <div className="bg-white p-6 rounded-xl shadow-sm border border-accent/10 space-y-4">
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-gray-600">Subtotal</span>
+                                            <span className="text-primary">Subtotal</span>
                                             <span className="font-medium">₱{calculationResult.subtotal}</span>
                                         </div>
 
                                         {calculationResult.discount_total > 0 && (
-                                            <div className="py-2 border-y border-dashed border-gray-100 space-y-2">
+                                            <div className="py-2 border-y border-dashed border-accent/10 space-y-2">
                                                 <div className="flex justify-between text-sm text-green-600 font-medium">
                                                     <span>Total Discounts</span>
                                                     <span>-₱{calculationResult.discount_total}</span>
@@ -236,7 +236,7 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
                                         )}
 
                                         <div className="py-2 space-y-2">
-                                            <div className="flex justify-between text-sm text-gray-600">
+                                            <div className="flex justify-between text-sm text-primary">
                                                 <span>Tax Total</span>
                                                 <span>₱{calculationResult.tax_total}</span>
                                             </div>
@@ -248,9 +248,9 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
                                             ))}
                                         </div>
 
-                                        <div className="pt-4 border-t border-gray-100 flex justify-between items-center">
-                                            <span className="text-lg font-bold text-gray-900">Grand Total</span>
-                                            <span className="text-2xl font-bold text-indigo-600">₱{calculationResult.grand_total}</span>
+                                        <div className="pt-4 border-t border-accent/10 flex justify-between items-center">
+                                            <span className="text-lg font-bold text-primary">Grand Total</span>
+                                            <span className="text-2xl font-bold text-secondary">₱{calculationResult.grand_total}</span>
                                         </div>
                                     </div>
 
@@ -267,7 +267,7 @@ export default function PricingSimulator({ isOpen, onClose, availableProducts })
                                             <button
                                                 onClick={handleReserve}
                                                 disabled={reserveMutation.isPending}
-                                                className="border-2 border-indigo-600 text-indigo-600 py-3 rounded-lg font-bold hover:bg-indigo-50 transition-colors"
+                                                className="border-2 border-secondary text-secondary py-3 rounded-lg font-bold hover:bg-secondary/10 transition-colors"
                                             >
                                                 {reserveMutation.isPending ? 'Reserving...' : 'Reserve Items'}
                                             </button>

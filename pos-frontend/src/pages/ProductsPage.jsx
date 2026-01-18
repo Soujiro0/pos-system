@@ -8,6 +8,7 @@ import ConfirmationModal from '../components/ConfirmationModal';
 import Pagination from '../components/Pagination';
 
 import { useProducts, useDeleteProduct } from '../hooks/useProducts';
+import { useCategories } from '../hooks/useCategories';
 
 export default function ProductsPage() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -23,6 +24,7 @@ export default function ProductsPage() {
 
 
     const { data: products, isLoading, isError, error } = useProducts(searchTerm, categoryFilter, currentPage, perPage);
+    const { data: categories } = useCategories();
     const deleteMutation = useDeleteProduct();
 
     const handleEdit = (product) => {
@@ -98,14 +100,19 @@ export default function ProductsPage() {
                     />
                 </div>
                 <div className="relative w-full md:w-48">
-                    <Filter className="absolute left-3 top-2.5 w-5 h-5 text-gray-400" />
-                    <input
-                        type="text"
-                        placeholder="Filter by category..."
+                    <Filter className="absolute left-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none" />
+                    <select
                         value={categoryFilter}
                         onChange={(e) => setCategoryFilter(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
-                    />
+                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all appearance-none cursor-pointer"
+                    >
+                        <option value="">All Categories</option>
+                        {categories?.map((category) => (
+                            <option key={category.id} value={category.slug}>
+                                {category.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className="flex bg-white rounded-lg p-1 border border-accent/20 shadow-sm shrink-0">
                     <button
