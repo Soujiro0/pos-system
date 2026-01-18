@@ -33,4 +33,9 @@ class Product extends Model
     {
         return $this->hasOne(Inventory::class, 'product_id');
     }
+
+    public function categoryRelation()
+    {
+        return $this->belongsTo(Category::class, 'category', 'id');
+    }
 }

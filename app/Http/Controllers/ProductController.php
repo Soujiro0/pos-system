@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Product::with('inventory');
+        $query = Product::with(['inventory', 'categoryRelation']);
 
         if ($request->has('q')) {
             $searchTerm = $request->query('q');
@@ -32,7 +32,10 @@ class ProductController extends Controller
         }
 
         if ($request->has('category')) {
-            $query->where('category', $request->query('category'));
+            $categorySlug = $request->query('category');
+            $query->whereHas('categoryRelation', function ($q) use ($categorySlug) {
+                $q->where('slug', $categorySlug);
+            });
         }
 
         $perPage = $request->input('per_page', 15);
