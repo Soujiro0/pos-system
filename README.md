@@ -1,66 +1,176 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# POS System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern Point of Sale (POS) system built with Laravel backend and React frontend, designed for retail businesses to manage products, inventory, pricing, transactions, and analytics.
 
-## About Laravel
+## Description
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This POS system provides a comprehensive solution for retail operations, featuring real-time inventory management, dynamic pricing strategies, transaction processing, and business analytics. The system is built with a Laravel REST API backend and a responsive React frontend, offering a seamless user experience for both cashiers and administrators.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Core Functionalities
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Product Management
+- **CRUD Operations**: Create, read, update, and delete products
+- **Product Categories**: Organize products into hierarchical categories
+- **Product Information**: Track SKU, name, description, cost, and pricing
+- **Barcode Support**: Manage product barcodes for quick scanning
 
-## Learning Laravel
+### 2. Inventory Management
+- **Real-time Stock Tracking**: Monitor product quantities across the system
+- **Low Stock Alerts**: Automatic notifications when inventory falls below threshold
+- **Inventory Transactions**: Track all stock movements (additions, sales, adjustments)
+- **Inventory Valuation**: Calculate total inventory value based on product costs
+- **Stock Adjustments**: Manual inventory corrections with reason tracking
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3. Pricing & Promotions
+- **Dynamic Pricing**: Set and manage product prices with effective date ranges
+- **Promotional Pricing**: Create time-based promotional prices
+- **Price History**: Track all price changes with audit logs
+- **Bulk Pricing**: Apply pricing strategies across multiple products
+- **Discount Management**: Configure percentage or fixed-amount discounts
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 4. Transaction Processing
+- **Point of Sale**: Fast and intuitive checkout interface
+- **Multiple Payment Methods**: Support for cash and card payments
+- **Tax Calculation**: Automatic tax computation on transactions
+- **Receipt Generation**: Print-ready receipt format with transaction details
+- **Transaction History**: Complete record of all sales transactions
+- **Cart Management**: Add, remove, and modify items before checkout
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 5. Analytics & Reporting
+- **Dashboard Overview**: Real-time business metrics and KPIs
+- **Sales Analytics**: 
+  - Daily, weekly, and monthly sales trends
+  - Revenue and profit tracking
+  - Transaction volume analysis
+- **Top Products**: Identify best-selling products by revenue
+- **Inventory Intelligence**: 
+  - Low stock alerts and counts
+  - Inventory valuation reports
+- **Visual Charts**: Interactive bar charts for sales and profit trends
+- **Daily Sales Summaries**: Automated aggregation of daily performance data
 
-## Laravel Sponsors
+### 6. User Interface
+- **Terminal View**: Dedicated POS interface for cashiers
+- **Admin Dashboard**: Comprehensive management interface
+- **Responsive Design**: Works seamlessly on desktop and tablet devices
+- **Keyboard Shortcuts**: Quick actions for faster operations
+- **Modern UI**: Clean, intuitive interface with smooth animations
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Technology Stack
 
-### Premium Partners
+### Backend
+- **Framework**: Laravel 11.x
+- **Database**: MySQL
+- **API**: RESTful API architecture
+- **Authentication**: Laravel Sanctum (ready for implementation)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Frontend
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **Routing**: React Router DOM
+- **State Management**: Zustand
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **Styling**: Tailwind CSS
 
-## Contributing
+## Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Prerequisites
+- PHP 8.2 or higher
+- Composer
+- Node.js 18 or higher
+- MySQL 8.0 or higher
 
-## Code of Conduct
+### Backend Setup
+```bash
+# Install PHP dependencies
+composer install
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Configure environment
+cp .env.example .env
+php artisan key:generate
 
-## Security Vulnerabilities
+# Configure database in .env file
+# DB_DATABASE=pos_system
+# DB_USERNAME=your_username
+# DB_PASSWORD=your_password
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Run migrations and seeders
+php artisan migrate:fresh --seed
+
+# Start development server
+php artisan serve
+```
+
+### Frontend Setup
+```bash
+# Navigate to frontend directory
+cd pos-frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+## API Endpoints
+
+### Products
+- `GET /api/v1/products` - List all products
+- `POST /api/v1/products` - Create product
+- `GET /api/v1/products/{id}` - Get product details
+- `PUT /api/v1/products/{id}` - Update product
+- `DELETE /api/v1/products/{id}` - Delete product
+
+### Categories
+- `GET /api/v1/categories` - List all categories
+- `POST /api/v1/categories` - Create category
+- `PUT /api/v1/categories/{id}` - Update category
+- `DELETE /api/v1/categories/{id}` - Delete category
+
+### Inventory
+- `GET /api/v1/inventory` - List inventory
+- `POST /api/v1/inventory/adjust` - Adjust stock levels
+
+### Pricing
+- `GET /api/v1/pricing/products/{id}` - Get product pricing
+- `POST /api/v1/pricing` - Create pricing rule
+- `PUT /api/v1/pricing/{id}` - Update pricing
+- `DELETE /api/v1/pricing/{id}` - Delete pricing
+
+### Transactions
+- `POST /api/v1/transactions` - Create transaction
+- `GET /api/v1/transactions` - List transactions
+- `GET /api/v1/transactions/{id}` - Get transaction details
+
+### Analytics
+- `GET /api/v1/analytics/dashboard` - Dashboard metrics
+- `GET /api/v1/analytics/sales` - Sales trend data
+
+## Database Schema
+
+The system uses the following main tables:
+- `tbl_products` - Product information
+- `tbl_categories` - Product categories
+- `tbl_inventories` - Stock levels and tracking
+- `tbl_inventory_transactions` - Inventory movement history
+- `tbl_prices` - Product pricing
+- `tbl_price_logs` - Price change history
+- `tbl_transactions` - Sales transactions
+- `tbl_transaction_items` - Transaction line items
+- `tbl_daily_sales_summaries` - Aggregated daily sales data
+
+## Features in Development
+
+- User authentication and role-based access control
+- Multi-store support
+- Customer management
+- Loyalty programs
+- Advanced reporting and exports
+- Email notifications
+- Backup and restore functionality
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-source software licensed under the MIT license.
