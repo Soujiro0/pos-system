@@ -15,7 +15,7 @@ export default function ProductCard({ product, onEdit, onDelete, onManageStock }
                         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
                         onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = 'https://via.placeholder.com/300?text=No+Image';
+                            e.target.src = 'https://placehold.co/300?text=No+Image';
                         }}
                     />
                 ) : (
