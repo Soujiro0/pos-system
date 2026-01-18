@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import ProductsPage from '../pages/ProductsPage';
+import CategoriesPage from '../pages/CategoriesPage';
 import PricingPage from '../pages/PricingPage';
 import TerminalPage from '../pages/TerminalPage';
 import DashboardPage from '../pages/DashboardPage';
@@ -14,6 +15,7 @@ export default function AppRoute() {
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/products" element={<ProductsPage />} />
+                <Route path="/categories" element={<CategoriesPage />} />
                 <Route path="/pricing" element={<PricingPage />} />
             </Route>
 

@@ -146,7 +146,7 @@ export default function TerminalPage() {
                             placeholder="Search products... (F2)"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 bg-[rgba(var(--color-light-rgb),0.1)] border border-transparent focus:bg-white focus:border-[var(--color-secondary)] rounded-xl focus:ring-4 focus:ring-[rgba(var(--color-secondary-rgb),0.2)] focus:outline-none text-white placeholder:text-[var(--color-light)] placeholder:opacity-50 transition-all font-medium"
+                            className="w-full pl-12 pr-4 py-3 bg-[rgba(var(--color-light-rgb),0.1)] border border-transparent focus:bg-[var(--color-secondary)] focus:border-[var(--color-secondary)] rounded-xl focus:ring-4 focus:ring-[rgba(var(--color-secondary-rgb),0.2)] focus:outline-none text-white placeholder:text-[var(--color-light)] placeholder:opacity-50 transition-all font-medium"
                         />
                     </div>
                     <div className="flex gap-2">

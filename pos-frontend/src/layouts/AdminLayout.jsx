@@ -1,5 +1,5 @@
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { LayoutDashboard, Tag, Package, Store, LogOut } from 'lucide-react';
+import { LayoutDashboard, Tag, Package, Store, LogOut, Layers } from 'lucide-react';
 
 export default function AdminLayout() {
     const location = useLocation();
@@ -7,6 +7,7 @@ export default function AdminLayout() {
     const navigation = [
         { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
         { name: 'Products', href: '/products', icon: Package },
+        { name: 'Categories', href: '/categories', icon: Layers },
         { name: 'Pricing & Promotion', href: '/pricing', icon: Tag },
     ];
 

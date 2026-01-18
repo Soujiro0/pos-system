@@ -21,7 +21,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::apiResource('products', \App\Http\Controllers\ProductController::class);
-    Route::get('categories', [\App\Http\Controllers\CategoryController::class, 'index']);
+    Route::apiResource('categories', \App\Http\Controllers\CategoryController::class);
     
     // Pricing Routes
     Route::prefix('pricing')->group(function () {
